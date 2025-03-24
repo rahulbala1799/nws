@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 // Cart item type
 export type CartItem = {
@@ -10,8 +10,8 @@ export type CartItem = {
   price: number;
   quantity: number;
   image: string;
-  customDesign?: File | null;
-  notes?: string;
+  customDesign: string;
+  notes: string;
   unitPrice: number;
   totalPrice: number;
 };
@@ -19,7 +19,7 @@ export type CartItem = {
 // Cart context type
 type CartContextType = {
   items: CartItem[];
-  addItem: (item: Omit<CartItem, 'id'>) => void;
+  addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
@@ -42,101 +42,115 @@ const CartContext = createContext<CartContextType>({
 export const useCart = () => useContext(CartContext);
 
 // Cart provider component
-export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Load cart from localStorage on initial render
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
       try {
-        const parsedCart = JSON.parse(storedCart);
-        // We need to filter out any items that have customDesign as it can't be serialized
-        // In a real app, you would upload the file and store a reference instead
-        const validItems = parsedCart.map((item: CartItem) => ({
-          ...item,
-          customDesign: null, // Reset customDesign since it can't be serialized
-        }));
-        setItems(validItems);
+        const parsedCart = JSON.parse(savedCart);
+        setCart(parsedCart);
       } catch (error) {
-        console.error('Failed to parse cart from localStorage', error);
+        console.error('Error parsing cart from localStorage:', error);
       }
     }
   }, []);
 
   // Update localStorage when cart changes
   useEffect(() => {
-    if (items.length > 0) {
-      // We need to create a version of the cart that can be serialized to JSON
-      const serializableItems = items.map(item => ({
-        ...item,
-        customDesign: null, // Remove File objects which can't be serialized
-      }));
-      localStorage.setItem('cart', JSON.stringify(serializableItems));
+    if (cart.length > 0) {
+      localStorage.setItem('cart', JSON.stringify(cart));
     } else {
       localStorage.removeItem('cart');
     }
 
-    // Update totals
-    const itemCount = items.reduce((total, item) => total + item.quantity, 0);
-    const priceSum = items.reduce((total, item) => total + item.totalPrice, 0);
-    
-    setTotalItems(itemCount);
-    setTotalPrice(priceSum);
-  }, [items]);
+    // Calculate total items and price
+    let items = 0;
+    let price = 0;
+
+    cart.forEach(item => {
+      items += item.quantity;
+      price += item.totalPrice;
+    });
+
+    setTotalItems(items);
+    setTotalPrice(price);
+  }, [cart]);
 
   // Add an item to the cart
-  const addItem = (item: Omit<CartItem, 'id'>) => {
-    setItems(prevItems => {
-      // Generate a unique ID for the new item
-      const id = `${item.productId}-${Date.now()}`;
-      const newItem = { ...item, id, totalPrice: item.unitPrice * item.quantity };
-      return [...prevItems, newItem as CartItem];
+  const addItem = (item: CartItem) => {
+    setCart(prevCart => {
+      // Check if item already exists in cart
+      const existingItemIndex = prevCart.findIndex(i => 
+        i.productId === item.productId && 
+        i.customDesign === item.customDesign && 
+        i.notes === item.notes
+      );
+
+      if (existingItemIndex !== -1) {
+        // Update existing item
+        const updatedCart = [...prevCart];
+        const existingItem = updatedCart[existingItemIndex];
+        
+        const newQuantity = existingItem.quantity + item.quantity;
+        const newTotalPrice = existingItem.unitPrice * newQuantity;
+        
+        updatedCart[existingItemIndex] = {
+          ...existingItem,
+          quantity: newQuantity,
+          totalPrice: newTotalPrice,
+        };
+        
+        return updatedCart;
+      } else {
+        // Add new item
+        return [...prevCart, item];
+      }
     });
   };
 
   // Remove an item from the cart
   const removeItem = (id: string) => {
-    setItems(prevItems => prevItems.filter(item => item.id !== id));
+    setCart(prevCart => prevCart.filter(item => item.id !== id));
   };
 
   // Update an item's quantity
   const updateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeItem(id);
-      return;
-    }
-
-    setItems(prevItems => 
-      prevItems.map(item => 
-        item.id === id 
-          ? { ...item, quantity, totalPrice: item.unitPrice * quantity } 
-          : item
-      )
+    setCart(prevCart => 
+      prevCart.map(item => {
+        if (item.id === id) {
+          return {
+            ...item,
+            quantity,
+            totalPrice: item.unitPrice * quantity,
+          };
+        }
+        return item;
+      })
     );
   };
 
   // Clear the entire cart
   const clearCart = () => {
-    setItems([]);
+    setCart([]);
     localStorage.removeItem('cart');
   };
 
-  const contextValue = {
-    items,
-    addItem,
-    removeItem,
-    updateQuantity,
-    clearCart,
-    totalItems,
-    totalPrice,
-  };
-
   return (
-    <CartContext.Provider value={contextValue}>
+    <CartContext.Provider value={{ 
+      items: cart, 
+      addItem, 
+      removeItem, 
+      updateQuantity, 
+      clearCart,
+      totalItems,
+      totalPrice
+    }}>
       {children}
     </CartContext.Provider>
   );
-} 
+}; 

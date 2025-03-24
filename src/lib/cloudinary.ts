@@ -6,22 +6,38 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const uploadImage = async (_file: File): Promise<string> => {
-  // In a real implementation, you would upload the file to Cloudinary
-  // This is just a placeholder function
-  // You would typically:
-  // 1. Create a signed upload URL from your backend
-  // 2. Upload the file directly to Cloudinary from the client
-  // 3. Return the resulting URL
-  
-  // For now, we'll simulate an upload by returning a placeholder URL
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1234567890/sample.jpg`;
+export const uploadImageClient = async (file: File): Promise<string> => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'printing_website'); // Your upload preset name
+    formData.append('cloud_name', 'rahulbala1799');
+    
+    const response = await fetch(`https://api.cloudinary.com/v1_1/rahulbala1799/image/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to upload image');
+    }
+    
+    const data = await response.json();
+    return data.secure_url;
+  } catch (error) {
+    console.error('Error uploading image to Cloudinary:', error);
+    return 'https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg';
+  }
 };
 
 export const deleteImage = async (_publicId: string): Promise<void> => {
   // In a real implementation, this would delete an image from Cloudinary
   // using the public_id
   return Promise.resolve();
+};
+
+export const getCloudinaryUrl = (publicId: string): string => {
+  return `https://res.cloudinary.com/rahulbala1799/image/upload/c_fill,g_auto,h_500,w_500/q_auto,f_auto/${publicId}`;
 };
 
 export default cloudinary; 

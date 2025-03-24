@@ -40,7 +40,7 @@ export default function Home() {
       <div className="relative bg-gray-900 text-white">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
+            src="https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg" 
             alt="Food packaging background"
             fill
             style={{ objectFit: "cover", objectPosition: "center" }}

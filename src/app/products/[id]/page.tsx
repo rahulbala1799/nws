@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useCart } from '@/lib/CartContext';
+import { uploadImageClient } from '@/lib/cloudinary';
 
 // Mock products data (this would come from the database in a real app)
 const PRODUCTS = [
@@ -15,7 +16,7 @@ const PRODUCTS = [
     price: 0.75,
     category: 'pizza-boxes',
     minQuantity: 100,
-    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
+    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
     features: ['Food-grade material', 'Custom printing', 'Various sizes available'],
     dimensions: '12" x 12" x 2"',
     material: 'Corrugated cardboard'
@@ -27,7 +28,7 @@ const PRODUCTS = [
     price: 1.25,
     category: 'pizza-boxes',
     minQuantity: 50,
-    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
+    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
     features: ['Thick corrugated material', 'Full-color printing', 'Premium finish'],
     dimensions: '14" x 14" x 2"',
     material: 'Heavy-duty corrugated cardboard'
@@ -39,7 +40,7 @@ const PRODUCTS = [
     price: 0.50,
     category: 'burger-boxes',
     minQuantity: 200,
-    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
+    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
     features: ['Secure closure', 'Custom printing', 'Stackable design'],
     dimensions: '5" x 5" x 3"',
     material: 'Food-grade cardboard'
@@ -51,7 +52,7 @@ const PRODUCTS = [
     price: 0.95,
     category: 'burger-boxes',
     minQuantity: 100,
-    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
+    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
     features: ['Interior & exterior printing', 'Premium finish', 'Extra sturdy'],
     dimensions: '6" x 6" x 4"',
     material: 'Premium cardboard'
@@ -63,7 +64,7 @@ const PRODUCTS = [
     price: 0.35,
     category: 'paper-bags',
     minQuantity: 300,
-    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
+    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
     features: ['Reinforced handles', 'Custom printing', 'Eco-friendly material'],
     dimensions: '8" x 5" x 10"',
     material: 'Kraft paper'
@@ -75,7 +76,7 @@ const PRODUCTS = [
     price: 0.65,
     category: 'paper-bags',
     minQuantity: 150,
-    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
+    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
     features: ['Extra strong handles', 'Full-color printing', 'Water-resistant coating'],
     dimensions: '10" x 6" x 12"',
     material: 'Heavy-duty kraft paper'
@@ -87,7 +88,7 @@ const PRODUCTS = [
     price: 0.10,
     category: 'premium-napkins',
     minQuantity: 500,
-    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
+    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
     features: ['Soft texture', 'Custom printing', 'Absorbent material'],
     dimensions: '6" x 6"',
     material: 'Soft tissue paper'
@@ -99,24 +100,40 @@ const PRODUCTS = [
     price: 0.25,
     category: 'premium-napkins',
     minQuantity: 250,
-    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
+    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
     features: ['Thick material', 'High-resolution printing', 'Embossed options available'],
     dimensions: '8" x 8"',
     material: 'Premium tissue paper'
   }
 ];
 
+// Define the CartItem type to match what's in CartContext
+type CartItem = {
+  id: string;
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+  customDesign: string;
+  notes: string;
+  unitPrice: number;
+  totalPrice: number;
+};
+
 export default function ProductPage() {
-  const { id } = useParams();
-  const product = PRODUCTS.find(p => p.id === String(id));
+  const params = useParams();
   const router = useRouter();
   const { addItem } = useCart();
-  
-  const [quantity, setQuantity] = useState(product?.minQuantity || 100);
+  const [quantity, setQuantity] = useState<number>(0);
   const [designFile, setDesignFile] = useState<File | null>(null);
-  const [notes, setNotes] = useState('');
-  const [addedToCart, setAddedToCart] = useState(false);
-  
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string>('');
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [notes, setNotes] = useState<string>('');
+  const [addedToCart, setAddedToCart] = useState<boolean>(false);
+
+  const product = PRODUCTS.find(p => p.id === params.id);
+
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -140,9 +157,20 @@ export default function ProductPage() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setDesignFile(e.target.files[0]);
+      
+      // Auto-upload when file is selected
+      setIsUploading(true);
+      try {
+        const fileUrl = await uploadImageClient(e.target.files[0]);
+        setUploadedFileUrl(fileUrl);
+        setIsUploading(false);
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        setIsUploading(false);
+      }
     }
   };
 
@@ -151,22 +179,29 @@ export default function ProductPage() {
   };
 
   const addToCart = () => {
+    if (!product) return;
+    
+    if (quantity < product.minQuantity) {
+      alert(`Minimum order quantity is ${product.minQuantity}`);
+      return;
+    }
+
+    const totalPrice = quantity * product.price;
+
     addItem({
+      id: Date.now().toString(),
       productId: product.id,
       name: product.name,
-      price: product.price,
+      price: totalPrice,
       quantity: quantity,
       image: product.images[0],
-      customDesign: designFile,
+      customDesign: uploadedFileUrl,
       notes: notes,
       unitPrice: product.price,
-      totalPrice: product.price * quantity
+      totalPrice: totalPrice
     });
-    
+
     setAddedToCart(true);
-    setTimeout(() => {
-      setAddedToCart(false);
-    }, 3000);
   };
 
   const goToCart = () => {
@@ -243,6 +278,7 @@ export default function ProductPage() {
                   </div>
                 </div>
 
+                {/* Design file upload */}
                 <div>
                   <label htmlFor="design" className="block text-sm font-medium text-gray-700">
                     Upload Design File (Optional)
@@ -257,6 +293,16 @@ export default function ProductPage() {
                       className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                   </div>
+                  {isUploading && (
+                    <div className="mt-2 text-sm text-blue-500">
+                      Uploading file...
+                    </div>
+                  )}
+                  {uploadedFileUrl && !isUploading && (
+                    <div className="mt-2 text-sm text-green-500">
+                      Design file uploaded successfully!
+                    </div>
+                  )}
                   <p className="mt-2 text-sm text-gray-500">
                     Accepted formats: JPG, PNG, PDF, AI
                   </p>
