@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -361,54 +363,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
-      {/* Custom styles for animations */}
-      <style jsx global>{`
-        @keyframes subtle-zoom {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-          100% { transform: scale(1); }
-        }
-        
-        @keyframes fade-in-up {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes title-reveal {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slow-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-1750px)); }
-        }
-        
-        .animate-subtle-zoom {
-          animation: subtle-zoom 30s infinite ease-in-out;
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 1s forwards;
-        }
-        
-        .animate-title-reveal {
-          animation: title-reveal 1s forwards;
-        }
-        
-        .animate-slow-scroll {
-          animation: slow-scroll 40s linear infinite;
-        }
-        
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        
-        .rotate-y-12:hover {
-          transform: rotateY(12deg) scale(1.1);
-        }
-      `}</style>
     </main>
   );
 }
