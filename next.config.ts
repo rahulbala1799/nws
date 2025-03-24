@@ -23,6 +23,10 @@ const nextConfig: NextConfig = {
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src \"self\"; script-src \"none\"; sandbox;",
   },
+  output: 'standalone',
+  reactStrictMode: true,
+  swcMinify: true,
+  poweredByHeader: false,
 };
 
 export default nextConfig;
