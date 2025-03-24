@@ -14,7 +14,7 @@ const PRODUCTS = [
     price: 0.75,
     category: 'pizza-boxes',
     minQuantity: 100,
-    images: ['/images/pizza-box.jpg'],
+    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
     features: ['Food-grade material', 'Custom printing', 'Various sizes available'],
     dimensions: '12" x 12" x 2"',
     material: 'Corrugated cardboard'
@@ -26,7 +26,7 @@ const PRODUCTS = [
     price: 1.25,
     category: 'pizza-boxes',
     minQuantity: 50,
-    images: ['/images/pizza-box-premium.jpg'],
+    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
     features: ['Thick corrugated material', 'Full-color printing', 'Premium finish'],
     dimensions: '14" x 14" x 2"',
     material: 'Heavy-duty corrugated cardboard'
@@ -38,7 +38,7 @@ const PRODUCTS = [
     price: 0.50,
     category: 'burger-boxes',
     minQuantity: 200,
-    images: ['/images/burger-box.jpg'],
+    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
     features: ['Secure closure', 'Custom printing', 'Stackable design'],
     dimensions: '5" x 5" x 3"',
     material: 'Food-grade cardboard'
@@ -50,7 +50,7 @@ const PRODUCTS = [
     price: 0.95,
     category: 'burger-boxes',
     minQuantity: 100,
-    images: ['/images/burger-box-premium.jpg'],
+    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
     features: ['Interior & exterior printing', 'Premium finish', 'Extra sturdy'],
     dimensions: '6" x 6" x 4"',
     material: 'Premium cardboard'
@@ -62,7 +62,7 @@ const PRODUCTS = [
     price: 0.35,
     category: 'paper-bags',
     minQuantity: 300,
-    images: ['/images/paper-bag.jpg'],
+    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
     features: ['Reinforced handles', 'Custom printing', 'Eco-friendly material'],
     dimensions: '8" x 5" x 10"',
     material: 'Kraft paper'
@@ -74,7 +74,7 @@ const PRODUCTS = [
     price: 0.65,
     category: 'paper-bags',
     minQuantity: 150,
-    images: ['/images/paper-bag-premium.jpg'],
+    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
     features: ['Extra strong handles', 'Full-color printing', 'Water-resistant coating'],
     dimensions: '10" x 6" x 12"',
     material: 'Heavy-duty kraft paper'
@@ -86,7 +86,7 @@ const PRODUCTS = [
     price: 0.10,
     category: 'premium-napkins',
     minQuantity: 500,
-    images: ['/images/napkin.jpg'],
+    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
     features: ['Soft texture', 'Custom printing', 'Absorbent material'],
     dimensions: '6" x 6"',
     material: 'Soft tissue paper'
@@ -98,7 +98,7 @@ const PRODUCTS = [
     price: 0.25,
     category: 'premium-napkins',
     minQuantity: 250,
-    images: ['/images/napkin-premium.jpg'],
+    images: ['https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg'],
     features: ['Thick material', 'High-resolution printing', 'Embossed options available'],
     dimensions: '8" x 8"',
     material: 'Premium tissue paper'

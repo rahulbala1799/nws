@@ -180,10 +180,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48 bg-gray-200 relative">
-                <img 
+                <Image 
                   src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
                   alt="Pizza Box" 
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">
@@ -195,10 +196,11 @@ export default function Home() {
             
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48 bg-gray-200 relative">
-                <img 
+                <Image 
                   src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
                   alt="Burger Box" 
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">
@@ -210,10 +212,11 @@ export default function Home() {
             
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48 bg-gray-200 relative">
-                <img 
+                <Image 
                   src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
                   alt="Paper Bag" 
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">
@@ -225,10 +228,11 @@ export default function Home() {
             
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48 bg-gray-200 relative">
-                <img 
+                <Image 
                   src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
                   alt="Premium Napkin" 
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">
