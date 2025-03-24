@@ -11,7 +11,7 @@ export default function Header() {
   const { totalItems } = useCart();
 
   const isActive = (path: string) => {
-    return pathname === path;
+    return pathname === path || pathname?.startsWith(path + '/');
   };
 
   return (
@@ -26,9 +26,19 @@ export default function Header() {
             </div>
             <nav className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <Link
+                href="/"
+                className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                  isActive('/') && !isActive('/products') && !isActive('/cart')
+                    ? 'border-blue-500 text-gray-900'
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                }`}
+              >
+                Home
+              </Link>
+              <Link
                 href="/products"
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                  isActive('/products') || pathname?.startsWith('/products/')
+                  isActive('/products')
                     ? 'border-blue-500 text-gray-900'
                     : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                 }`}
@@ -50,31 +60,7 @@ export default function Header() {
                   </span>
                 )}
               </Link>
-              <Link
-                href="/orders"
-                className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                  isActive('/orders')
-                    ? 'border-blue-500 text-gray-900'
-                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                }`}
-              >
-                My Orders
-              </Link>
             </nav>
-          </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            <Link
-              href="/signin"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md"
-            >
-              Sign in
-            </Link>
-            <Link
-              href="/signup"
-              className="ml-4 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md"
-            >
-              Sign up
-            </Link>
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
             <button
@@ -126,9 +112,19 @@ export default function Header() {
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
             <Link
+              href="/"
+              className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                isActive('/') && !isActive('/products') && !isActive('/cart')
+                  ? 'bg-blue-50 border-blue-500 text-blue-700'
+                  : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
               href="/products"
               className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-                isActive('/products') || pathname?.startsWith('/products/')
+                isActive('/products')
                   ? 'bg-blue-50 border-blue-500 text-blue-700'
                   : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
               }`}
@@ -152,30 +148,6 @@ export default function Header() {
                 )}
               </div>
             </Link>
-            <Link
-              href="/orders"
-              className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-                isActive('/orders')
-                  ? 'bg-blue-50 border-blue-500 text-blue-700'
-                  : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
-              }`}
-            >
-              My Orders
-            </Link>
-            <div className="mt-4 flex flex-col space-y-2 px-3">
-              <Link
-                href="/signin"
-                className="block px-4 py-2 text-center text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md"
-              >
-                Sign in
-              </Link>
-              <Link
-                href="/signup"
-                className="block px-4 py-2 text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md"
-              >
-                Sign up
-              </Link>
-            </div>
           </div>
         </div>
       )}

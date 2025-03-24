@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-// Mock products data (this would come from the database in a real app)
+// Mock products data with placeholder images
 const PRODUCTS = [
   {
     id: '1',
@@ -14,7 +14,7 @@ const PRODUCTS = [
     price: 0.75,
     category: 'pizza-boxes',
     minQuantity: 100,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Pizza+Box'],
     features: ['Food-grade material', 'Custom printing', 'Various sizes available'],
     dimensions: '12" x 12" x 2"',
     material: 'Corrugated cardboard'
@@ -26,7 +26,7 @@ const PRODUCTS = [
     price: 1.25,
     category: 'pizza-boxes',
     minQuantity: 50,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Premium+Pizza+Box'],
     features: ['Thick corrugated material', 'Full-color printing', 'Premium finish'],
     dimensions: '14" x 14" x 2"',
     material: 'Heavy-duty corrugated cardboard'
@@ -38,7 +38,7 @@ const PRODUCTS = [
     price: 0.50,
     category: 'burger-boxes',
     minQuantity: 200,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Burger+Box'],
     features: ['Secure closure', 'Custom printing', 'Stackable design'],
     dimensions: '5" x 5" x 3"',
     material: 'Food-grade cardboard'
@@ -50,7 +50,7 @@ const PRODUCTS = [
     price: 0.95,
     category: 'burger-boxes',
     minQuantity: 100,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Premium+Burger+Box'],
     features: ['Interior & exterior printing', 'Premium finish', 'Extra sturdy'],
     dimensions: '6" x 6" x 4"',
     material: 'Premium cardboard'
@@ -62,7 +62,7 @@ const PRODUCTS = [
     price: 0.35,
     category: 'paper-bags',
     minQuantity: 300,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Paper+Bag'],
     features: ['Reinforced handles', 'Custom printing', 'Eco-friendly material'],
     dimensions: '8" x 5" x 10"',
     material: 'Kraft paper'
@@ -74,7 +74,7 @@ const PRODUCTS = [
     price: 0.65,
     category: 'paper-bags',
     minQuantity: 150,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Premium+Paper+Bag'],
     features: ['Extra strong handles', 'Full-color printing', 'Water-resistant coating'],
     dimensions: '10" x 6" x 12"',
     material: 'Heavy-duty kraft paper'
@@ -84,9 +84,9 @@ const PRODUCTS = [
     name: 'Standard Napkins',
     description: 'High-quality napkins customized with your logo or design.',
     price: 0.10,
-    category: 'premium-napkins',
+    category: 'napkins',
     minQuantity: 500,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Napkins'],
     features: ['Soft texture', 'Custom printing', 'Absorbent material'],
     dimensions: '6" x 6"',
     material: 'Soft tissue paper'
@@ -96,9 +96,9 @@ const PRODUCTS = [
     name: 'Premium Napkins',
     description: 'Luxury napkins with high-quality printing and premium feel.',
     price: 0.25,
-    category: 'premium-napkins',
+    category: 'napkins',
     minQuantity: 250,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Premium+Napkins'],
     features: ['Thick material', 'High-resolution printing', 'Embossed options available'],
     dimensions: '8" x 8"',
     material: 'Premium tissue paper'
@@ -119,7 +119,15 @@ type Product = {
   material: string;
 };
 
-export default function ProductsPage() {
+// Categories for filtering
+const categories = [
+  { id: 'pizza-boxes', name: 'Pizza Boxes' },
+  { id: 'burger-boxes', name: 'Burger Boxes' },
+  { id: 'paper-bags', name: 'Paper Bags' },
+  { id: 'napkins', name: 'Napkins' }
+];
+
+function ProductList() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
   
@@ -176,14 +184,6 @@ export default function ProductsPage() {
     
     setFilteredProducts(sorted);
   };
-
-  // Categories for filtering
-  const categories = [
-    { id: 'pizza-boxes', name: 'Pizza Boxes' },
-    { id: 'burger-boxes', name: 'Burger Boxes' },
-    { id: 'paper-bags', name: 'Paper Bags' },
-    { id: 'premium-napkins', name: 'Premium Napkins' }
-  ];
 
   return (
     <div className="bg-white">
@@ -252,13 +252,15 @@ export default function ProductsPage() {
                 >
                   <option value="">All Products</option>
                   {categories.map((category) => (
-                    <option key={category.id} value={category.id}>{category.name}</option>
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
                   ))}
                 </select>
               </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
               {filteredProducts.map((product) => (
                 <div key={product.id} className="group relative">
                   <div className="w-full min-h-80 bg-gray-200 aspect-square rounded-md overflow-hidden group-hover:opacity-75">
@@ -268,7 +270,7 @@ export default function ProductsPage() {
                         alt={product.name}
                         fill
                         style={{ objectFit: "cover" }}
-                        className="w-full h-full object-center object-cover"
+                        className="w-full h-full object-center object-cover lg:w-full lg:h-full"
                       />
                     </div>
                   </div>
@@ -280,9 +282,9 @@ export default function ProductsPage() {
                           {product.name}
                         </Link>
                       </h3>
-                      <p className="mt-1 text-sm text-gray-500">Min: {product.minQuantity} units</p>
+                      <p className="mt-1 text-sm text-gray-500">Min order: {product.minQuantity}</p>
                     </div>
-                    <p className="text-sm font-medium text-gray-900">${product.price.toFixed(2)}/unit</p>
+                    <p className="text-sm font-medium text-gray-900">${product.price.toFixed(2)}</p>
                   </div>
                 </div>
               ))}
@@ -291,5 +293,14 @@ export default function ProductsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Wrap the component with Suspense boundary
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="p-12 text-center">Loading products...</div>}>
+      <ProductList />
+    </Suspense>
   );
 } 

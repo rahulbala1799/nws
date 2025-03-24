@@ -3,19 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "./deploy.sh"
   },
   "dependencies": {
-    "@prisma/client": "^6.5.0",
-    "@vercel/postgres": "^0.10.0",
-    "bcrypt": "^5.1.1",
-    "cloudinary": "^2.6.0",
     "next": "15.2.3",
-    "next-auth": "^4.24.11",
-    "next-cloudinary": "^6.16.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -27,7 +22,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
-    "prisma": "^6.5.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

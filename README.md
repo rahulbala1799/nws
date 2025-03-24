@@ -1,100 +1,79 @@
 # PrintMaster - Food Packaging Printing Website
 
-A modern e-commerce web application for custom food packaging printing services, built with Next.js, PostgreSQL, and Tailwind CSS.
+A simple Next.js website for a printing business focusing on food packaging products. This website allows customers to browse products, add them to their cart, and customize their orders.
 
 ## Features
 
-- Browse and filter food packaging products (Pizza Boxes, Burger Boxes, Paper Bags, Premium Napkins)
+- Responsive design with Tailwind CSS
+- Product catalog with categories and filtering options
 - Product detail pages with customization options
 - Shopping cart functionality
-- Checkout process
-- Mobile-responsive design
+- Clean, modern UI
 
 ## Tech Stack
 
-- **Frontend:** Next.js, React, TypeScript, Tailwind CSS
-- **Backend:** Next.js API Routes
-- **Database:** PostgreSQL with Prisma ORM
-- **Deployment:** GitHub, Railway
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- React Context for state management
 
-## Getting Started
+## Running Locally
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Deploying to Railway
 
 ### Prerequisites
 
-- Node.js (v14 or later)
-- npm or yarn
-- PostgreSQL database
+1. A Railway account
+2. The Railway CLI installed (optional but recommended)
 
-### Installation
+### Steps to Deploy
 
-1. Clone the repository:
+#### Option 1: Using the Railway CLI
 
-```bash
-git clone https://github.com/yourusername/printing-website.git
-cd printing-website
-```
+1. Install the Railway CLI:
+   ```bash
+   npm install -g @railway/cli
+   ```
 
-2. Install dependencies:
+2. Login to Railway:
+   ```bash
+   railway login
+   ```
 
-```bash
-npm install
-# or
-yarn install
-```
+3. Link your project to Railway:
+   ```bash
+   railway init
+   ```
 
-3. Set up environment variables:
+4. Deploy your project:
+   ```bash
+   railway up
+   ```
 
-Create a `.env` file in the root directory with the following variables:
+#### Option 2: Using the Railway Dashboard
 
-```
-DATABASE_URL="postgresql://postgres:password@localhost:5432/printing_db"
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key"
-```
+1. Go to [Railway.app](https://railway.app) and log in
+2. Create a new project
+3. Select "Deploy from GitHub repo"
+4. Connect your GitHub account and select your repository
+5. Configure the deployment settings:
+   - Framework preset: Next.js
+   - Start command: `npm run start`
+   - No environment variables are required for this simplified version
 
-4. Initialize the database:
-
-```bash
-npx prisma generate
-npx prisma db push
-```
-
-5. Run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Deployment
-
-### Database Setup on Railway
-
-1. Create a new PostgreSQL database on Railway
-2. Set the `DATABASE_URL` environment variable in your Railway project to the connection string provided by Railway
-
-### Deploying to Railway
-
-1. Push your code to GitHub
-2. Connect your GitHub repository to Railway
-3. Configure environment variables
-4. Deploy the application
-
-## Project Structure
-
-- `/src/app`: Next.js app directory structure
-- `/src/components`: Reusable React components
-- `/src/lib`: Utilities and shared code
-- `/prisma`: Prisma schema and migrations
-- `/public`: Static assets
+6. Deploy the project
 
 ## License
 
-MIT
-
-## Contact
-
-Your Name - your.email@example.com
+This project is licensed under the MIT License.

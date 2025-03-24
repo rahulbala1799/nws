@@ -5,9 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useCart } from '@/lib/CartContext';
-import { uploadImageClient } from '@/lib/cloudinary';
 
-// Mock products data (this would come from the database in a real app)
+// Mock products data with placeholder images
 const PRODUCTS = [
   {
     id: '1',
@@ -16,7 +15,7 @@ const PRODUCTS = [
     price: 0.75,
     category: 'pizza-boxes',
     minQuantity: 100,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Pizza+Box'],
     features: ['Food-grade material', 'Custom printing', 'Various sizes available'],
     dimensions: '12" x 12" x 2"',
     material: 'Corrugated cardboard'
@@ -28,7 +27,7 @@ const PRODUCTS = [
     price: 1.25,
     category: 'pizza-boxes',
     minQuantity: 50,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Premium+Pizza+Box'],
     features: ['Thick corrugated material', 'Full-color printing', 'Premium finish'],
     dimensions: '14" x 14" x 2"',
     material: 'Heavy-duty corrugated cardboard'
@@ -40,7 +39,7 @@ const PRODUCTS = [
     price: 0.50,
     category: 'burger-boxes',
     minQuantity: 200,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Burger+Box'],
     features: ['Secure closure', 'Custom printing', 'Stackable design'],
     dimensions: '5" x 5" x 3"',
     material: 'Food-grade cardboard'
@@ -52,7 +51,7 @@ const PRODUCTS = [
     price: 0.95,
     category: 'burger-boxes',
     minQuantity: 100,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Premium+Burger+Box'],
     features: ['Interior & exterior printing', 'Premium finish', 'Extra sturdy'],
     dimensions: '6" x 6" x 4"',
     material: 'Premium cardboard'
@@ -64,7 +63,7 @@ const PRODUCTS = [
     price: 0.35,
     category: 'paper-bags',
     minQuantity: 300,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Paper+Bag'],
     features: ['Reinforced handles', 'Custom printing', 'Eco-friendly material'],
     dimensions: '8" x 5" x 10"',
     material: 'Kraft paper'
@@ -76,7 +75,7 @@ const PRODUCTS = [
     price: 0.65,
     category: 'paper-bags',
     minQuantity: 150,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Premium+Paper+Bag'],
     features: ['Extra strong handles', 'Full-color printing', 'Water-resistant coating'],
     dimensions: '10" x 6" x 12"',
     material: 'Heavy-duty kraft paper'
@@ -86,9 +85,9 @@ const PRODUCTS = [
     name: 'Standard Napkins',
     description: 'High-quality napkins customized with your logo or design.',
     price: 0.10,
-    category: 'premium-napkins',
+    category: 'napkins',
     minQuantity: 500,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Napkins'],
     features: ['Soft texture', 'Custom printing', 'Absorbent material'],
     dimensions: '6" x 6"',
     material: 'Soft tissue paper'
@@ -98,37 +97,20 @@ const PRODUCTS = [
     name: 'Premium Napkins',
     description: 'Luxury napkins with high-quality printing and premium feel.',
     price: 0.25,
-    category: 'premium-napkins',
+    category: 'napkins',
     minQuantity: 250,
-    images: ['https://res.cloudinary.com/rahulbala1799/image/upload/v1312461204/sample.jpg'],
+    images: ['https://placehold.co/600x600/e2e8f0/1e293b?text=Premium+Napkins'],
     features: ['Thick material', 'High-resolution printing', 'Embossed options available'],
     dimensions: '8" x 8"',
     material: 'Premium tissue paper'
   }
 ];
 
-// Define the CartItem type to match what's in CartContext
-type CartItem = {
-  id: string;
-  productId: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-  customDesign: string;
-  notes: string;
-  unitPrice: number;
-  totalPrice: number;
-};
-
 export default function ProductPage() {
   const params = useParams();
   const router = useRouter();
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState<number>(0);
-  const [designFile, setDesignFile] = useState<File | null>(null);
-  const [uploadedFileUrl, setUploadedFileUrl] = useState<string>('');
-  const [isUploading, setIsUploading] = useState<boolean>(false);
   const [notes, setNotes] = useState<string>('');
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
 
@@ -157,23 +139,6 @@ export default function ProductPage() {
     }
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setDesignFile(e.target.files[0]);
-      
-      // Auto-upload when file is selected
-      setIsUploading(true);
-      try {
-        const fileUrl = await uploadImageClient(e.target.files[0]);
-        setUploadedFileUrl(fileUrl);
-        setIsUploading(false);
-      } catch (error) {
-        console.error('Error uploading file:', error);
-        setIsUploading(false);
-      }
-    }
-  };
-
   const calculateTotal = () => {
     return (product.price * quantity).toFixed(2);
   };
@@ -195,7 +160,7 @@ export default function ProductPage() {
       price: totalPrice,
       quantity: quantity,
       image: product.images[0],
-      customDesign: uploadedFileUrl,
+      customDesign: '',
       notes: notes,
       unitPrice: product.price,
       totalPrice: totalPrice
@@ -248,7 +213,6 @@ export default function ProductPage() {
                 <ul className="list-disc pl-5 space-y-2">
                   <li>Dimensions: {product.dimensions}</li>
                   <li>Material: {product.material}</li>
-                  <li>Minimum Order: {product.minQuantity} units</li>
                   {product.features.map((feature, index) => (
                     <li key={index}>{feature}</li>
                   ))}
@@ -256,116 +220,87 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Order customization form */}
             <div className="mt-8 border-t border-gray-200 pt-8">
-              <h2 className="text-lg font-medium text-gray-900">Customize Your Order</h2>
-              
-              <div className="mt-4 space-y-6">
-                <div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-900">Minimum Order Quantity: {product.minQuantity}</h3>
+                <div className="mt-4">
                   <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
-                    Quantity (Minimum: {product.minQuantity})
+                    Quantity
                   </label>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      id="quantity"
-                      name="quantity"
-                      min={product.minQuantity}
-                      value={quantity}
-                      onChange={handleQuantityChange}
-                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div>
-                </div>
-
-                {/* Design file upload */}
-                <div>
-                  <label htmlFor="design" className="block text-sm font-medium text-gray-700">
-                    Upload Design File (Optional)
-                  </label>
-                  <div className="mt-1 flex items-center">
-                    <input
-                      type="file"
-                      id="design"
-                      name="design"
-                      accept=".jpg,.jpeg,.png,.pdf,.ai"
-                      onChange={handleFileChange}
-                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                    />
-                  </div>
-                  {isUploading && (
-                    <div className="mt-2 text-sm text-blue-500">
-                      Uploading file...
-                    </div>
-                  )}
-                  {uploadedFileUrl && !isUploading && (
-                    <div className="mt-2 text-sm text-green-500">
-                      Design file uploaded successfully!
-                    </div>
-                  )}
-                  <p className="mt-2 text-sm text-gray-500">
-                    Accepted formats: JPG, PNG, PDF, AI
-                  </p>
-                </div>
-
-                <div>
-                  <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
-                    Special Instructions (Optional)
-                  </label>
-                  <div className="mt-1">
-                    <textarea
-                      id="notes"
-                      name="notes"
-                      rows={3}
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div>
+                  <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    min={product.minQuantity}
+                    value={quantity || ''}
+                    onChange={handleQuantityChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    placeholder={`Min: ${product.minQuantity}`}
+                  />
                 </div>
               </div>
-            </div>
 
-            {/* Total and add to cart */}
-            <div className="mt-8 border-t border-gray-200 pt-8">
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-medium text-gray-900">Total</span>
-                <span className="text-2xl font-bold text-gray-900">${calculateTotal()}</span>
+              <div className="mt-4">
+                <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
+                  Special Instructions
+                </label>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  rows={3}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  placeholder="Any special requirements or instructions"
+                />
               </div>
-              
-              <div className="mt-6 flex flex-col space-y-4">
-                {addedToCart ? (
-                  <div className="flex flex-col space-y-4">
-                    <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                      <span className="block sm:inline">Product added to cart successfully!</span>
-                    </div>
-                    <div className="flex space-x-4">
-                      <button
-                        type="button"
-                        onClick={() => setAddedToCart(false)}
-                        className="flex-1 bg-white border border-gray-300 rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      >
-                        Continue Shopping
-                      </button>
-                      <button
-                        type="button"
-                        onClick={goToCart}
-                        className="flex-1 bg-blue-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      >
-                        View Cart
-                      </button>
+
+              {quantity >= product.minQuantity && (
+                <div className="mt-4 bg-gray-50 p-4 rounded-md">
+                  <div className="flex justify-between">
+                    <span className="text-base font-medium text-gray-900">Total</span>
+                    <span className="text-base font-medium text-gray-900">${calculateTotal()}</span>
+                  </div>
+                </div>
+              )}
+
+              {!addedToCart ? (
+                <button
+                  type="button"
+                  onClick={addToCart}
+                  className="mt-8 w-full bg-blue-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  Add to Cart
+                </button>
+              ) : (
+                <div className="mt-6">
+                  <div className="rounded-md bg-green-50 p-4">
+                    <div className="flex">
+                      <div className="ml-3">
+                        <p className="text-sm font-medium text-green-800">
+                          Product added to cart!
+                        </p>
+                      </div>
                     </div>
                   </div>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={addToCart}
-                    className="w-full bg-blue-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  >
-                    Add to Cart
-                  </button>
-                )}
-              </div>
+                  <div className="mt-6 flex space-x-4">
+                    <button
+                      type="button"
+                      onClick={() => setAddedToCart(false)}
+                      className="flex-1 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                      Continue Shopping
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goToCart}
+                      className="flex-1 bg-blue-600 border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                      View Cart
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
