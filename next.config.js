@@ -28,6 +28,12 @@ const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false,
+  experimental: {
+    outputFileTracingRoot: undefined,
+    outputFileTracingIncludes: {
+      '/**/*': ['./public/**/*'],
+    },
+  },
 }
 
 module.exports = nextConfig 
