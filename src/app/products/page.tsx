@@ -9,99 +9,99 @@ import { useSearchParams } from 'next/navigation';
 const PRODUCTS = [
   {
     id: '1',
-    name: 'Artisan Pizza Box',
-    description: 'Elevate your pizza delivery with our premium artisan pizza boxes, featuring custom printing on all sides.',
+    name: 'Eco-Friendly Burger Box',
+    description: 'Made from sustainable bagasse with custom branding options. No hidden charges, MOQ from 200 Units.',
     price: 0.75,
-    category: 'pizza-boxes',
-    minQuantity: 100,
-    images: ['https://images.unsplash.com/photo-1583167671230-50976487b222?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-    features: ['Food-grade material', 'Custom printing', 'Heat retention technology'],
-    dimensions: '12" x 12" x 2"',
-    material: 'Premium corrugated cardboard'
+    category: 'burger-boxes',
+    minQuantity: 200,
+    images: ['https://images.unsplash.com/photo-1559305616-3f99cd43e353?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
+    features: ['100% Bagasse material', 'Custom branding', 'Sustainable', 'Biodegradable', 'No plate charges'],
+    dimensions: '15cm x 15cm x 8cm',
+    material: 'Bagasse (sugarcane fiber)'
   },
   {
     id: '2',
-    name: 'Signature Pizza Box',
-    description: 'Our signature collection features premium quality boxes with full-color printing and enhanced durability for an unforgettable unboxing experience.',
+    name: 'Premium Meal Box',
+    description: 'Multi-compartment meal box made from eco-friendly bagasse. No hidden charges, MOQ from 200 Units.',
     price: 1.25,
-    category: 'pizza-boxes',
-    minQuantity: 50,
-    images: ['https://images.unsplash.com/photo-1583167617348-1e3b6acab4b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-    features: ['Thick corrugated material', 'Full-color printing', 'Premium finish'],
-    dimensions: '14" x 14" x 2"',
-    material: 'Heavy-duty corrugated cardboard'
+    category: 'meal-boxes',
+    minQuantity: 200,
+    images: ['https://images.unsplash.com/photo-1603105029360-5c92f0bd55c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
+    features: ['Multi-compartment design', 'Custom printing', 'Eco-friendly material', 'Oil-resistant', 'No hidden charges'],
+    dimensions: '23cm x 15cm x 7.5cm',
+    material: 'Premium bagasse'
   },
   {
     id: '3',
-    name: 'Gourmet Burger Box',
-    description: 'These elegant burger boxes are designed to keep your gourmet creations secure while enhancing presentation.',
-    price: 0.50,
+    name: 'Clamshell Burger Container',
+    description: 'Hinged design for optimal burger presentation. No hidden charges, MOQ from 200 Units.',
+    price: 0.85,
     category: 'burger-boxes',
-    minQuantity: 200,
-    images: ['https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-    features: ['Secure closure', 'Custom printing', 'Stackable design'],
-    dimensions: '5" x 5" x 3"',
-    material: 'Food-grade cardboard'
+    minQuantity: 300,
+    images: ['https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
+    features: ['Secure closure', 'Custom branding', 'Sustainable bagasse', 'Leakproof design', 'Microwavable'],
+    dimensions: '15cm x 15cm x 7cm',
+    material: '100% Bagasse'
   },
   {
     id: '4',
-    name: 'Luxury Burger Box',
-    description: 'Experience our high-end burger boxes with premium finish and customizable interior printing, perfect for upscale establishments.',
-    price: 0.95,
-    category: 'burger-boxes',
-    minQuantity: 100,
-    images: ['https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-    features: ['Interior & exterior printing', 'Premium finish', 'Extra sturdy'],
-    dimensions: '6" x 6" x 4"',
-    material: 'Premium cardboard'
+    name: 'Large Meal Box',
+    description: 'Extra capacity for family meals and larger portions. No hidden charges, MOQ from 200 Units.',
+    price: 1.45,
+    category: 'meal-boxes',
+    minQuantity: 200,
+    images: ['https://images.unsplash.com/photo-1583967395257-43631d0baacd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
+    features: ['Extra large capacity', 'Full-color printing', 'Heat retention', 'Stackable design', 'No plate charges'],
+    dimensions: '28cm x 18cm x 8cm',
+    material: 'Premium bagasse'
   },
   {
     id: '5',
-    name: 'Designer Paper Bag',
-    description: 'Eco-friendly paper bags with stunning designs, perfect for takeout and creating a memorable brand experience.',
-    price: 0.35,
-    category: 'paper-bags',
-    minQuantity: 300,
-    images: ['https://images.unsplash.com/photo-1589758438368-0ad531db3366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-    features: ['Reinforced handles', 'Custom printing', 'Eco-friendly material'],
-    dimensions: '8" x 5" x 10"',
-    material: 'Kraft paper'
+    name: 'Square Meal Container',
+    description: 'Modern design with excellent heat retention. No hidden charges, MOQ from 200 Units.',
+    price: 1.15,
+    category: 'meal-boxes',
+    minQuantity: 250,
+    images: ['https://images.unsplash.com/photo-1595424515350-1314a8ababa2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
+    features: ['Square design', 'Custom branding', 'Compostable material', 'Secure lid', 'Oil-resistant'],
+    dimensions: '18cm x 18cm x 6cm',
+    material: 'Sustainable bagasse'
   },
   {
     id: '6',
-    name: 'Premium Shopping Bag',
-    description: 'Heavy-duty paper bags with sophisticated design and superior strength, turning every purchase into a luxury experience.',
+    name: 'Mini Burger Box',
+    description: 'Perfect for sliders and small burgers. No hidden charges, MOQ from 200 Units.',
     price: 0.65,
-    category: 'paper-bags',
-    minQuantity: 150,
-    images: ['https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-    features: ['Extra strong handles', 'Full-color printing', 'Water-resistant coating'],
-    dimensions: '10" x 6" x 12"',
-    material: 'Heavy-duty kraft paper'
+    category: 'burger-boxes',
+    minQuantity: 400,
+    images: ['https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
+    features: ['Compact size', 'Full-color printing', 'Water-resistant coating', 'Eco-friendly', 'No hidden charges'],
+    dimensions: '10cm x 10cm x 6cm',
+    material: 'Bagasse'
   },
   {
     id: '7',
-    name: 'Custom Napkins',
-    description: 'High-quality napkins customized with your logo or design, adding a touch of elegance to your customer experience.',
-    price: 0.10,
-    category: 'napkins',
-    minQuantity: 500,
-    images: ['https://images.unsplash.com/photo-1563885860652-cd1ba50e37c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-    features: ['Soft texture', 'Custom printing', 'Absorbent material'],
-    dimensions: '6" x 6"',
-    material: 'Soft tissue paper'
+    name: 'Three-Compartment Meal Box',
+    description: 'Ideal for meals with multiple components. No hidden charges, MOQ from 200 Units.',
+    price: 1.35,
+    category: 'meal-boxes',
+    minQuantity: 300,
+    images: ['https://images.unsplash.com/photo-1609501676725-66de4992731b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
+    features: ['Three compartments', 'Custom printing', 'Microwave safe', 'Fully compostable', 'Secure closure'],
+    dimensions: '24cm x 20cm x 7cm',
+    material: 'Premium bagasse'
   },
   {
     id: '8',
-    name: 'Signature Napkins',
-    description: 'Our signature napkins feature high-quality printing and premium feel, perfect for upscale restaurants and special events.',
-    price: 0.25,
-    category: 'napkins',
-    minQuantity: 250,
-    images: ['https://images.unsplash.com/photo-1606914770909-980f3daf4981?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
-    features: ['Thick material', 'High-resolution printing', 'Embossed options available'],
-    dimensions: '8" x 8"',
-    material: 'Premium tissue paper'
+    name: 'Premium Burger Tray',
+    description: 'Upscale presentation for gourmet burgers. No hidden charges, MOQ from 200 Units.',
+    price: 0.95,
+    category: 'burger-boxes',
+    minQuantity: 350,
+    images: ['https://images.unsplash.com/photo-1610614819513-58e34989e371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
+    features: ['Open-top design', 'High-resolution branding', 'Stackable', 'Grease-resistant', 'From Irish supplier'],
+    dimensions: '16cm x 16cm x 4cm',
+    material: 'Sustainable bagasse'
   }
 ];
 
@@ -121,10 +121,8 @@ type Product = {
 
 // Categories for filtering
 const categories = [
-  { id: 'pizza-boxes', name: 'Pizza Boxes' },
   { id: 'burger-boxes', name: 'Burger Boxes' },
-  { id: 'paper-bags', name: 'Paper Bags' },
-  { id: 'napkins', name: 'Napkins' }
+  { id: 'meal-boxes', name: 'Meal Boxes' }
 ];
 
 function ProductList() {
@@ -203,16 +201,46 @@ function ProductList() {
         </div>
         <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
-            <span className="block">Discover Our</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-600">Luxury Collection</span>
+            <span className="block">Irish-Made</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-600">Sustainable Packaging</span>
           </h1>
           <p className="mt-4 text-xl text-gray-200 max-w-2xl">
-            Explore our premium food packaging products designed to elevate your brand
+            Premium bagasse food containers with custom branding and no hidden charges
           </p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Key benefits bar */}
+        <div className="py-6 my-6 bg-amber-50 rounded-xl shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="flex items-center justify-center px-4 py-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <span className="text-sm font-medium">Irish-Based Supplier</span>
+            </div>
+            <div className="flex items-center justify-center px-4 py-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm font-medium">Ships in 7-10 Days</span>
+            </div>
+            <div className="flex items-center justify-center px-4 py-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span className="text-sm font-medium">No Hidden Charges</span>
+            </div>
+            <div className="flex items-center justify-center px-4 py-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+              </svg>
+              <span className="text-sm font-medium">MOQ from 200 Units</span>
+            </div>
+          </div>
+        </div>
+
         <div className="py-16">
           {/* Filter Bar */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0 mb-12">
