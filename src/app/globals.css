@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-accent: #f59e0b;
+  --color-accent-dark: #d97706;
 }
 
 @theme inline {
@@ -22,5 +24,98 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans, Arial), Helvetica, sans-serif;
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtleZoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes shine {
+  from { background-position: 200% center; }
+  to { background-position: -200% center; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s forwards;
+}
+
+.animate-float {
+  animation: floatUp 4s ease-in-out infinite;
+}
+
+.animate-subtle-zoom {
+  animation: subtleZoom 20s infinite ease-in-out;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-dark), var(--color-accent), var(--color-accent-dark));
+  background-size: 300% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 4s linear infinite;
+}
+
+/* 3D Card effects */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-3d:hover {
+  transform: rotateY(10deg) rotateX(5deg);
+}
+
+.card-3d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, var(--color-accent), var(--color-accent-dark));
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity 0.3s ease;
+}
+
+.card-3d:hover::before {
+  opacity: 0.7;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-dark);
 }
