@@ -28,11 +28,8 @@ const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false,
-  experimental: {
-    outputFileTracingRoot: undefined,
-    outputFileTracingIncludes: {
-      '/**/*': ['./public/**/*'],
-    },
+  env: {
+    NODE_ENV: process.env.NODE_ENV || 'production',
   },
 }
 
