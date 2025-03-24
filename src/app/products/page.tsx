@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 // Mock products data with high-quality images instead of placeholders
 const PRODUCTS = [
@@ -187,26 +188,26 @@ function ProductList() {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Banner */}
-      <div className="relative h-[40vh] lg:h-[50vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image 
-            src="https://images.unsplash.com/photo-1591543620767-582b2e76369e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-            alt="Premium packaging" 
-            fill
-            style={{ objectFit: 'cover' }}
-            priority
-            className="brightness-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80"></div>
-        </div>
-        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
-            <span className="block">Irish-Made</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-600">Sustainable Packaging</span>
-          </h1>
-          <p className="mt-4 text-xl text-gray-200 max-w-2xl">
-            Premium bagasse food containers with custom branding and no hidden charges
-          </p>
+      <div 
+        className="relative bg-cover bg-center h-[40vh]" 
+        style={{ 
+          backgroundImage: "url('https://images.unsplash.com/photo-1605371924599-2d0365da1ae0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+          backgroundPosition: "center 40%"
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/80"></div>
+        <div className="container mx-auto px-6 h-full flex items-center relative z-10">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Our Products</h1>
+            <p className="text-xl text-white/90 mb-4">
+              Premium bagasse packaging solutions from Ireland&apos;s leading eco-friendly supplier
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <span className="bg-white/20 text-white px-4 py-2 rounded-full text-sm">No hidden charges</span>
+              <span className="bg-white/20 text-white px-4 py-2 rounded-full text-sm">7-10 day shipping</span>
+              <span className="bg-white/20 text-white px-4 py-2 rounded-full text-sm">MOQ from 200 units</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -337,6 +338,24 @@ function ProductList() {
               <p className="text-gray-500">Try changing your filters or check back later for new products</p>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Call to Action */}
+      <div className="py-20 bg-gradient-to-r from-blue-900 to-purple-900 text-white">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-6">Ready to Order?</h2>
+          <p className="text-xl mb-8 max-w-3xl mx-auto">
+            Contact us today for a custom quote on your sustainable packaging needs.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact" className="btn-white">
+              Get a Quote
+            </Link>
+            <a href="tel:+35312345678" className="btn-secondary">
+              Call Us Now
+            </a>
+          </div>
         </div>
       </div>
     </div>

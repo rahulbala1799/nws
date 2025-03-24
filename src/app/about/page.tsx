@@ -9,16 +9,16 @@ export default function AboutPage() {
     <main className="bg-white min-h-screen">
       {/* Hero Banner */}
       <div 
-        className="relative bg-cover bg-center h-[60vh]" 
+        className="relative bg-cover bg-center h-[40vh]" 
         style={{ 
           backgroundImage: "url('https://images.unsplash.com/photo-1605371924599-2d0365da1ae0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
           backgroundPosition: "center 40%"
         }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/80"></div>
         <div className="container mx-auto px-6 h-full flex items-center relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">About Us</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">About PrintNPack Ltd</h1>
             <p className="text-xl text-white/90 mb-4">
               Ireland&apos;s leading provider of eco-friendly bagasse food packaging solutions
             </p>
@@ -33,7 +33,7 @@ export default function AboutPage() {
             <div className="md:w-1/2">
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
               <p className="text-gray-700 mb-6">
-                Founded with a mission to reduce plastic waste in the food service industry, our company has become Ireland&apos;s trusted supplier of sustainable packaging solutions. We recognized the environmental impact of traditional food packaging and set out to provide a better alternative.
+                Founded with a mission to reduce plastic waste in the food service industry, PrintNPack Ltd has become Ireland&apos;s trusted supplier of sustainable packaging solutions. We recognized the environmental impact of traditional food packaging and set out to provide a better alternative.
               </p>
               <p className="text-gray-700 mb-6">
                 Our journey began with the simple idea that food packaging could be both eco-friendly and functional. Today, we proudly serve businesses across Ireland with our premium bagasse products that don&apos;t compromise on quality or performance.
@@ -56,13 +56,13 @@ export default function AboutPage() {
       </div>
 
       {/* Bagasse Process */}
-      <div className="py-20 bg-green-50">
+      <div className="py-20 bg-blue-50">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">The Bagasse Process</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="bg-white p-8 rounded-lg shadow-sm">
-              <div className="bg-green-100 h-16 w-16 flex items-center justify-center rounded-full mb-6 text-green-600 font-bold text-2xl">1</div>
+              <div className="bg-blue-100 h-16 w-16 flex items-center justify-center rounded-full mb-6 text-blue-900 font-bold text-2xl">1</div>
               <h3 className="text-xl font-semibold mb-4">Sugarcane Harvesting</h3>
               <p className="text-gray-700">
                 Bagasse is a byproduct of sugarcane processing. After the juice is extracted for sugar production, the fibrous residue that remains is collected instead of being discarded.
@@ -70,7 +70,7 @@ export default function AboutPage() {
             </div>
             
             <div className="bg-white p-8 rounded-lg shadow-sm">
-              <div className="bg-green-100 h-16 w-16 flex items-center justify-center rounded-full mb-6 text-green-600 font-bold text-2xl">2</div>
+              <div className="bg-blue-100 h-16 w-16 flex items-center justify-center rounded-full mb-6 text-blue-900 font-bold text-2xl">2</div>
               <h3 className="text-xl font-semibold mb-4">Sustainable Processing</h3>
               <p className="text-gray-700">
                 The collected bagasse is cleaned and processed using heat and pressure to create a sturdy, food-safe material perfect for creating durable food containers without harmful chemicals.
@@ -78,7 +78,7 @@ export default function AboutPage() {
             </div>
             
             <div className="bg-white p-8 rounded-lg shadow-sm">
-              <div className="bg-green-100 h-16 w-16 flex items-center justify-center rounded-full mb-6 text-green-600 font-bold text-2xl">3</div>
+              <div className="bg-blue-100 h-16 w-16 flex items-center justify-center rounded-full mb-6 text-blue-900 font-bold text-2xl">3</div>
               <h3 className="text-xl font-semibold mb-4">Molding & Customization</h3>
               <p className="text-gray-700">
                 The processed bagasse is molded into various food container designs, from burger boxes to multi-compartment meal trays, and customized with your branding for a unique eco-friendly packaging solution.
@@ -96,7 +96,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                <div className="h-14 w-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-900">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
                   </svg>
@@ -105,14 +105,14 @@ export default function AboutPage() {
               <div>
                 <h3 className="text-xl font-semibold mb-3">Environmental Stewardship</h3>
                 <p className="text-gray-700">
-                  We're committed to reducing the environmental impact of food packaging. By using bagasse, a renewable resource, we help divert waste from landfills while providing a sustainable alternative to plastic and styrofoam.
+                  We&apos;re committed to reducing the environmental impact of food packaging. By using bagasse, a renewable resource, we help divert waste from landfills while providing a sustainable alternative to plastic and styrofoam.
                 </p>
               </div>
             </div>
             
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                <div className="h-14 w-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-900">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
                   </svg>
@@ -128,7 +128,7 @@ export default function AboutPage() {
             
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                <div className="h-14 w-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-900">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
                   </svg>
@@ -144,7 +144,7 @@ export default function AboutPage() {
             
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="h-14 w-14 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                <div className="h-14 w-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-900">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
                   </svg>
@@ -162,7 +162,7 @@ export default function AboutPage() {
       </div>
 
       {/* Environmental Impact */}
-      <div className="py-20 bg-gradient-to-br from-green-600 to-green-700 text-white">
+      <div className="py-20 bg-gradient-to-r from-blue-900 to-purple-900 text-white">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">Our Environmental Impact</h2>
           
