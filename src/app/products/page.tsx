@@ -154,7 +154,7 @@ export default function ProductsPage() {
   // Handle sorting
   const handleSort = (sortBy: string) => {
     setSortOption(sortBy);
-    let sorted = [...filteredProducts];
+    const sorted = [...filteredProducts];
     
     switch (sortBy) {
       case 'price-low':

@@ -65,7 +65,7 @@ export default function CheckoutPage() {
             Thank you for your order. Your order number is <span className="font-medium text-gray-900">{orderNumber}</span>.
           </p>
           <p className="mt-1 text-sm text-gray-500">
-            We've sent a confirmation to your email address.
+            We&apos;ve sent a confirmation to your email address.
           </p>
           <div className="mt-8">
             <Link href="/" className="text-base font-medium text-blue-600 hover:text-blue-500">

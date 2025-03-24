@@ -122,7 +122,7 @@ export default function ProductPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
           <h1 className="text-3xl font-extrabold text-gray-900">Product Not Found</h1>
-          <p className="mt-4 text-gray-500">The product you're looking for doesn't exist.</p>
+          <p className="mt-4 text-gray-500">The product you&apos;re looking for doesn&apos;t exist.</p>
           <div className="mt-6">
             <Link href="/products" className="text-blue-600 hover:text-blue-500">
               Back to products

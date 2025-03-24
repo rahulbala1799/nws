@@ -6,7 +6,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const uploadImage = async (file: File): Promise<string> => {
+export const uploadImage = async (_file: File): Promise<string> => {
   // In a real implementation, you would upload the file to Cloudinary
   // This is just a placeholder function
   // You would typically:
@@ -18,7 +18,7 @@ export const uploadImage = async (file: File): Promise<string> => {
   return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1234567890/sample.jpg`;
 };
 
-export const deleteImage = async (publicId: string): Promise<void> => {
+export const deleteImage = async (_publicId: string): Promise<void> => {
   // In a real implementation, this would delete an image from Cloudinary
   // using the public_id
   return Promise.resolve();

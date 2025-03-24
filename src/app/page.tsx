@@ -7,29 +7,29 @@ export default function Home() {
     {
       id: 'pizza-boxes',
       name: 'Pizza Boxes',
-      description: 'Custom printed pizza boxes for your restaurant or delivery service.',
-      image: '/images/pizza-box.jpg',
+      description: 'Custom printed pizza boxes in various sizes.',
+      image: 'https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg',
       href: '/products?category=pizza-boxes'
     },
     {
       id: 'burger-boxes',
       name: 'Burger Boxes',
-      description: 'Stylish burger boxes designed to keep your burgers fresh and presentable.',
-      image: '/images/burger-box.jpg',
+      description: 'Eco-friendly burger packaging to keep your food hot and fresh.',
+      image: 'https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg',
       href: '/products?category=burger-boxes'
     },
     {
       id: 'paper-bags',
       name: 'Paper Bags',
-      description: 'Eco-friendly paper bags perfect for takeout and delivery orders.',
-      image: '/images/paper-bag.jpg',
+      description: 'Sturdy paper bags with custom branding for takeout orders.',
+      image: 'https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg',
       href: '/products?category=paper-bags'
     },
     {
-      id: 'premium-napkins',
+      id: 'napkins',
       name: 'Premium Napkins',
       description: 'High-quality napkins customized with your restaurant logo or design.',
-      image: '/images/napkin.jpg',
+      image: 'https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg',
       href: '/products?category=premium-napkins'
     }
   ];
@@ -40,7 +40,7 @@ export default function Home() {
       <div className="relative bg-gray-900 text-white">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src="/images/hero-background.jpg" 
+            src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
             alt="Food packaging background"
             fill
             style={{ objectFit: "cover", objectPosition: "center" }}
@@ -53,7 +53,7 @@ export default function Home() {
             Custom Food Packaging Printing
           </h1>
           <p className="mt-6 text-xl max-w-3xl">
-            Elevate your brand with beautifully designed and printed food packaging. From pizza boxes to premium napkins, we've got your packaging needs covered.
+            Elevate your brand with beautifully designed and printed food packaging. From pizza boxes to premium napkins, we&apos;ve got your packaging needs covered.
           </p>
           <div className="mt-10">
             <Link
@@ -173,6 +173,73 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-12">Our Products</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="h-48 bg-gray-200 relative">
+                <img 
+                  src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
+                  alt="Pizza Box" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Pizza Boxes</h3>
+                <p className="text-gray-600 mb-4">Custom printed pizza boxes in various sizes for your pizzeria.</p>
+                <Link href="/products?category=pizza-boxes" className="text-blue-600 hover:underline">View Products &rarr;</Link>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="h-48 bg-gray-200 relative">
+                <img 
+                  src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
+                  alt="Burger Box" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Burger Boxes</h3>
+                <p className="text-gray-600 mb-4">Eco-friendly burger packaging to keep your food hot and fresh.</p>
+                <Link href="/products?category=burger-boxes" className="text-blue-600 hover:underline">View Products &rarr;</Link>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="h-48 bg-gray-200 relative">
+                <img 
+                  src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
+                  alt="Paper Bag" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Paper Bags</h3>
+                <p className="text-gray-600 mb-4">Sturdy paper bags with custom branding for takeout orders.</p>
+                <Link href="/products?category=paper-bags" className="text-blue-600 hover:underline">View Products &rarr;</Link>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="h-48 bg-gray-200 relative">
+                <img 
+                  src="https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg" 
+                  alt="Premium Napkin" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Premium Napkins</h3>
+                <p className="text-gray-600 mb-4">High-quality napkins with your logo for a professional touch.</p>
+                <Link href="/products?category=napkins" className="text-blue-600 hover:underline">View Products &rarr;</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
